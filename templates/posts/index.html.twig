@@ -1,30 +1,27 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Posts index{% endblock %}
+{% block title %}Liste des sujets{% endblock %}
 
 {% block body %}
-    <h1>Posts index</h1>
+    <h1>Liste des sujets</h1>
 
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Title</th>
+                <th>Sujet</th>
                 <th>Message</th>
-                <th>CreatedAt</th>
-                <th>actions</th>
+                <th>Créé le</th>
             </tr>
         </thead>
         <tbody>
         {% for post in posts %}
             <tr>
-                <td>{{ post.id }}</td>
                 <td>{{ post.title }}</td>
                 <td>{{ post.message }}</td>
                 <td>{{ post.createdAt ? post.createdAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>
-                    <a href="{{ path('posts_show', {'id': post.id}) }}">show</a>
-                    <a href="{{ path('posts_edit', {'id': post.id}) }}">edit</a>
+                    <a href="{{ path('posts_show', {'id': post.id}) }}" class="btn btn-success">Accéder</a>
+                    <a href="{{ path('posts_edit', {'id': post.id}) }}" class="btn btn-secondary">Éditer</a>
                     {% set isLike=0 %}
                     {% for like in post.likes %}
                         {% if like.user==app.user %}
@@ -32,9 +29,9 @@
                         {% endif %}
                     {% endfor %}
                     {% if isLike==0 %}
-                        <a href="{{ path('like_post', {'id': post.id}) }}">like</a>
+                        <a href="{{ path('like_post', {'id': post.id}) }}" class="btn btn-danger">Like</a>
                     {% else %}
-                        <a href="{{ path('like_post', {'id': post.id}) }}">dislike</a>
+                        <a href="{{ path('like_post', {'id': post.id}) }}" class="btn btn-danger">Dislike</a>
                     {% endif %}
 
                 </td>
@@ -47,5 +44,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('posts_new') }}">Create new</a>
+    <a href="{{ path('posts_new') }}" class="btn btn-info"> + Créer un nouveau post</a>
 {% endblock %}

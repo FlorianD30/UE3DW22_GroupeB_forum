@@ -1,13 +1,13 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Posts{% endblock %}
+{% block title %}Éditer mon post{% endblock %}
 
 {% block body %}
-    <h1>Edit Posts</h1>
+    <h1>Éditer mon post</h1>
 
     {{ include('posts/_form.html.twig', {'button_label': 'Update'}) }}
 
-    <a href="{{ path('posts_index') }}">back to list</a>
+    <a href="{{ path('posts_index') }}" class="btn btn-success">Retour à la liste</a>
 
     {{ include('posts/_delete_form.html.twig') }}
 {% endblock %}
