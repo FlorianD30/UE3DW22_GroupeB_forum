@@ -22,6 +22,21 @@ class Comments
      */
     private $message;
 
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $createdAt;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Posts::class, inversedBy="comments")
+     */
+    private $posts;
+
+    public function __construct()
+    {
+        $this->createdAt=new \DateTime();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -35,6 +50,30 @@ class Comments
     public function setMessage(string $message): self
     {
         $this->message = $message;
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getPosts(): ?Posts
+    {
+        return $this->posts;
+    }
+
+    public function setPosts(?Posts $posts): self
+    {
+        $this->posts = $posts;
 
         return $this;
     }
