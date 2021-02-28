@@ -19,6 +19,13 @@ class PostsRepository extends ServiceEntityRepository
         parent::__construct($registry, Posts::class);
     }
 
+    public function getpostByuser() {
+        return $this->createQueryBuilder('p')
+            ->leftJoin('p.likes', 'l')->addSelect('l')
+            ->leftJoin('l.user', 'u')->addSelect('u')
+            ->getQuery()->getResult();
+    }
+
     // /**
     //  * @return Posts[] Returns an array of Posts objects
     //  */

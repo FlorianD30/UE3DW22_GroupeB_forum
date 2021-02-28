@@ -58,10 +58,16 @@ class Users implements UserInterface
      */
     private $posts;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Like::class, mappedBy="user")
+     */
+    private $likes;
+
     public function __construct()
     {
         $this->createdAt=new \DateTime();
         $this->posts = new ArrayCollection();
+        $this->likes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -205,6 +211,36 @@ class Users implements UserInterface
             // set the owning side to null (unless already changed)
             if ($post->getUser() === $this) {
                 $post->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Like[]
+     */
+    public function getLikes(): Collection
+    {
+        return $this->likes;
+    }
+
+    public function addLike(Like $like): self
+    {
+        if (!$this->likes->contains($like)) {
+            $this->likes[] = $like;
+            $like->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLike(Like $like): self
+    {
+        if ($this->likes->removeElement($like)) {
+            // set the owning side to null (unless already changed)
+            if ($like->getUser() === $this) {
+                $like->setUser(null);
             }
         }
 

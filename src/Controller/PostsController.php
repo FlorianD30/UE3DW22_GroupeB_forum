@@ -21,7 +21,7 @@ class PostsController extends AbstractController
     public function index(PostsRepository $postsRepository): Response
     {
         return $this->render('posts/index.html.twig', [
-            'posts' => $postsRepository->findAll(),
+            'posts' => $postsRepository->getpostByuser(),
         ]);
     }
 
